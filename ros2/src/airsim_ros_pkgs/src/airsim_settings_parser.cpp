@@ -1,4 +1,5 @@
 #include "airsim_settings_parser.h"
+#include <iostream>
 
 AirSimSettingsParser::AirSimSettingsParser(const std::string& host_ip)
     : host_ip_(host_ip)
@@ -18,13 +19,15 @@ bool AirSimSettingsParser::getSettingsText(std::string& settings_text) const
 
     settings_text = airsim_client.getSettingsString();
 
+    std::cerr << "settings text" << settings_text << std::endl;
+
     return !settings_text.empty();
 }
 
 std::string AirSimSettingsParser::getSimMode()
 {
     const auto& settings_json = msr::airlib::Settings::loadJSonString(settings_text_);
-    return settings_json.getString("SimMode", "");
+    return settings_json.getString("SimMode", "Multirotor");
 }
 
 // mimics void ASimHUD::initializeSettings()

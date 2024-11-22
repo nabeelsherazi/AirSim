@@ -1,6 +1,6 @@
 #include <airsim_ros_wrapper.h>
 #include "common/AirSimSettings.hpp"
-#include <tf2_sensor_msgs/tf2_sensor_msgs.h>
+#include <tf2_sensor_msgs/tf2_sensor_msgs.hpp>
 
 using namespace std::placeholders;
 
@@ -186,6 +186,8 @@ void AirsimROSWrapper::create_ros_pubs_from_settings_json()
         }
 
         // iterate over camera map std::map<std::string, CameraSetting> .cameras;
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Found uhhh cameras length: %d", vehicle_setting->cameras.size());
+
         for (auto& curr_camera_elem : vehicle_setting->cameras) {
             auto& camera_setting = curr_camera_elem.second;
             auto& curr_camera_name = curr_camera_elem.first;
